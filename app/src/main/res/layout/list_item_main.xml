@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#FF4444">
+
+    <LinearLayout
+        android:id="@+id/view_list_repo_action_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/view_list_repo_action_delete"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/view_list_repo_action_update"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#8BC34A"
+            android:gravity="center"
+            android:text="Refresh"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_list_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="These classes teach you how to accomplish tasks with graphics that "/>
+
+        <TextView
+            android:id="@+id/text_list_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="bottom sutom"/>
+    </RelativeLayout>
+
+</FrameLayout>
