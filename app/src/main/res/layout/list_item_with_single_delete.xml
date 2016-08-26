@@ -2,34 +2,37 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FF4444">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/view_list_repo_action_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        android:background="#FF4444"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/view_list_repo_action_delete"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:padding="12dp"
-            android:text="Delete"
+            android:text="Delete ?"
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/view_list_repo_action_update"
+            android:id="@+id/view_list_repo_action_undo"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:background="#8BC34A"
             android:gravity="center"
             android:padding="12dp"
-            android:text="Refresh"
+            android:text="Undo"
             android:textColor="@android:color/white"/>
 
-    </LinearLayout><include layout="@layout/view_list_main_content"/>
+    </LinearLayout>
+
+    <include layout="@layout/view_list_main_content"/>
+
 </FrameLayout>

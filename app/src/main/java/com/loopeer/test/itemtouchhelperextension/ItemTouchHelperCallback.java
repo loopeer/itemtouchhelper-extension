@@ -26,7 +26,15 @@ public class ItemTouchHelperCallback extends ItemTouchHelperExtension.Callback {
 
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if (viewHolder instanceof MainRecyclerAdapter.ItemViewHolder)
-            ((MainRecyclerAdapter.ItemViewHolder) viewHolder).mViewContent.setTranslationX(dX);
+        MainRecyclerAdapter.ItemBaseViewHolder holder = (MainRecyclerAdapter.ItemBaseViewHolder) viewHolder;
+        if (viewHolder instanceof MainRecyclerAdapter.ItemSwipeWithActionWidthNoSpringViewHolder) {
+            if (dX < -holder.mActionContainer.getWidth()) {
+                dX = -holder.mActionContainer.getWidth();
+            }
+            holder.mViewContent.setTranslationX(dX);
+            return;
+        }
+        if (viewHolder instanceof MainRecyclerAdapter.ItemBaseViewHolder)
+            holder.mViewContent.setTranslationX(dX);
     }
 }
