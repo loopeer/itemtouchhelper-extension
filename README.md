@@ -3,6 +3,8 @@ This library add something for swipe item settling, recover base on the [Itemtou
 
 This used in the repo [code-reader](https://github.com/loopeer/code-reader)
 
+[Download Smaple](https://github.com/loopeer/itemtouchhelper-extension/releases/tag/1.0.0)
+
 Screeshot
 ====
 ###item swipe with spring  
