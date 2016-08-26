@@ -300,6 +300,9 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
                 }
             } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
                 mActivePointerId = ACTIVE_POINTER_ID_NONE;
+                if (mClick) {
+                    doChildClickEvent(event.getRawX(), event.getRawY());
+                }
                 select(null, ACTION_STATE_IDLE);
             } else if (mActivePointerId != ACTIVE_POINTER_ID_NONE) {
                 // in a non scroll orientation, if distance change is above threshold, we
@@ -315,17 +318,6 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             if (mVelocityTracker != null) {
                 mVelocityTracker.addMovement(event);
             }
-
-            /*if (mPreOpened != null && mPreOpened != mSelected && mSelected != null) {
-                closeOpenedPreItem();
-                return false;
-            }*/
-/*
-            if (mPreOpened != null && mPreOpened != mSelected) {
-                closeOpenedPreItem();
-                return false;
-            }
-*/
             return mSelected != null;
         }
 
@@ -433,6 +425,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     }
 
     private void doChildClickEvent(float x, float y) {
+        if (mSelected == null) return;
         View view = mSelected.itemView;
         View consumeEventView = findConsumeView((ViewGroup) view, x, y);
         if (consumeEventView != null) {
