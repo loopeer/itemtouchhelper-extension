@@ -1,5 +1,7 @@
 # itemtouchhelper-extension
-This library add something for swipe item settling, recover base on the Itemtouchhelper.This used in the repo [code-reader](https://github.com/loopeer/code-reader)
+This library add something for swipe item settling, recover base on the [Itemtouchhelper](https://developer.android.com/reference/android/support/v7/widget/helper/ItemTouchHelper.html).
+
+This used in the repo [code-reader](https://github.com/loopeer/code-reader)
 
 Screeshot
 ====
