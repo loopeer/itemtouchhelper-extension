@@ -17,12 +17,54 @@ Screeshot
 Installation
 ====
 ```groovy
-
+dependencies {
+    compile 'com.loopeer.library:itemtouchhelperextension:1.0.0'
+}
 ```
-
 Usages
 ====
+```java
+mCallback = new ItemTouchHelperCallback();
+mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
+mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+```
 
+ItemTouchHelperCallback just set as Itemtouchhelper. Set your swipe content view **translationX** by moving in method **onChildDraw**
+```java
+public class ItemTouchHelperCallback extends ItemTouchHelperExtension.Callback {
+
+    @Override
+    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        return makeMovementFlags(0, ItemTouchHelper.START);
+    }
+
+    @Override
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        return false;
+    }
+    
+    ...
+
+    @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        MainRecyclerAdapter.ItemBaseViewHolder holder = (MainRecyclerAdapter.ItemBaseViewHolder) viewHolder;
+        holder.mViewContent.setTranslationX(dX);
+    }
+}
+```
+At last you can let your **viewholder implements Extension** to set swipe settling width
+```java
+@Override
+public float getActionWidth() {
+    return mActionContainer.getWidth();
+}
+```
+This will use whole recyclerview width when you do not add the width
+
+Contact me: 
+====
+Github:[ToDou](https://github.com/ToDou)   
+Gmail:[yytodou123@gmail.com](yytodou123@gmail.com)
 
 License
 ====
