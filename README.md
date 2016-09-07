@@ -5,7 +5,7 @@ This used in the repo [code-reader](https://github.com/loopeer/code-reader)
 
 [Download Smaple](https://github.com/loopeer/itemtouchhelper-extension/releases/tag/1.0.0)
 
-Screeshot
+Screenshot
 ====
 ###item swipe with spring  
 ![](/screenshot/itemtouch_spring.gif)   
