@@ -437,7 +437,10 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
             if (child instanceof ViewGroup && child.getVisibility() == View.VISIBLE) {
-                return findConsumeView((ViewGroup) child, x, y);
+                View view = findConsumeView((ViewGroup) child, x, y);
+                if (view != null) {
+                    return view;
+                }
             } else {
                 if (isInBoundsClickable((int) x, (int) y, child)) return child;
             }
