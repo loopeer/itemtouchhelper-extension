@@ -1,14 +1,17 @@
 package com.loopeer.test.itemtouchhelperextension;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopeer.itemtouchhelperextension.Extension;
+import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int ITEM_TYPE_ACTION_WIDTH_NO_SPRING = 1002;
     private List<TestModel> mDatas;
     private Context mContext;
+    private ItemTouchHelperExtension mItemTouchHelperExtension;
 
     public MainRecyclerAdapter(Context context) {
         mDatas = new ArrayList<>();
@@ -34,6 +38,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void updateData(List<TestModel> datas) {
         setDatas(datas);
         notifyDataSetChanged();
+    }
+
+    public void setItemTouchHelperExtension(ItemTouchHelperExtension itemTouchHelperExtension) {
+        mItemTouchHelperExtension = itemTouchHelperExtension;
     }
 
     private LayoutInflater getLayoutInflater() {
@@ -98,6 +106,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyItemRemoved(adapterPosition);
     }
 
+    public void move(int from, int to) {
+        TestModel prev = mDatas.remove(from);
+        mDatas.add(to > from ? to - 1 : to, prev);
+        notifyItemMoved(from, to);
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (mDatas.get(position).position == 1) {
@@ -131,6 +145,15 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void bind(TestModel testModel) {
             mTextTitle.setText(testModel.title);
             mTextIndex.setText("#" + testModel.position);
+            itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                        mItemTouchHelperExtension.startDrag(ItemBaseViewHolder.this);
+                    }
+                    return true;
+                }
+            });
         }
     }
 

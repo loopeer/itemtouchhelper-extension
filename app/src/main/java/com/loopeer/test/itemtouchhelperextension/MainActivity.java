@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mCallback = new ItemTouchHelperCallback();
         mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mAdapter.setItemTouchHelperExtension(mItemTouchHelper);
     }
 
     private List<TestModel> createTestDatas() {

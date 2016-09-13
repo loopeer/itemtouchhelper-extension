@@ -11,17 +11,24 @@ public class ItemTouchHelperCallback extends ItemTouchHelperExtension.Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        return makeMovementFlags(0, ItemTouchHelper.START);
+        return makeMovementFlags(/*ItemTouchHelper.UP|ItemTouchHelper.DOWN*/0, ItemTouchHelper.START);
     }
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+    /*    MainRecyclerAdapter adapter = (MainRecyclerAdapter) recyclerView.getAdapter();
+        adapter.move(viewHolder.getAdapterPosition(), target.getAdapterPosition());*/
         return false;
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
+    }
+
+    @Override
+    public boolean isLongPressDragEnabled() {
+        return true;
     }
 
     @Override
