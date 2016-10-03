@@ -426,8 +426,10 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
 
     private void doChildClickEvent(float x, float y) {
         if (mSelected == null) return;
-        View view = mSelected.itemView;
-        View consumeEventView = findConsumeView((ViewGroup) view, x, y);
+        View consumeEventView = mSelected.itemView;
+        if (consumeEventView instanceof ViewGroup) {
+            consumeEventView = findConsumeView((ViewGroup) consumeEventView, x, y);
+        }
         if (consumeEventView != null) {
             consumeEventView.performClick();
         }
