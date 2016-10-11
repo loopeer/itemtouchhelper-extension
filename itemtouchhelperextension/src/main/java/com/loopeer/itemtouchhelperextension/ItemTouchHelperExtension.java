@@ -1204,8 +1204,8 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     }
 
     private void updateDxDy(MotionEvent ev, int directionFlags, int pointerIndex) {
-        final float x = MotionEventCompat.getX(ev, pointerIndex);
-        final float y = MotionEventCompat.getY(ev, pointerIndex);
+        final float x = ev.getX(pointerIndex);
+        final float y = ev.getY(pointerIndex);
 
         // Calculate the distance moved
         mDx = x - mInitialTouchX;
