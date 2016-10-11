@@ -61,6 +61,17 @@ public float getActionWidth() {
 ```
 This will use whole recyclerview width when you do not add the width
 
+Additional Drag Feature
+====
+If you want to add drag item feature.You just do **super.onChildDraw** in method onChildDraw of the class **ItemTouchHelperCallback**. Just like bottom:
+```java
+  @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        if (dY != 0 && dX == 0) super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+       ...
+    }
+```
+
 Contact me: 
 ====
 Github:[ToDou](https://github.com/ToDou)   
