@@ -18,7 +18,7 @@ Installation
 ====
 ```groovy
 dependencies {
-    compile 'com.loopeer.library:itemtouchhelperextension:1.0.1'
+    compile 'com.loopeer.library:itemtouchhelperextension:1.0.2'
 }
 ```
 Usages
