@@ -18,7 +18,7 @@ Installation
 ====
 ```groovy
 dependencies {
-    compile 'com.loopeer.library:itemtouchhelperextension:1.0.2'
+    compile 'com.loopeer.library:itemtouchhelperextension:1.0.4'
 }
 ```
 Usages
@@ -70,6 +70,13 @@ If you want to add drag item feature.You just do **super.onChildDraw** in method
         if (dY != 0 && dX == 0) super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
        ...
     }
+```
+
+Click Action Button To Close Opened
+====
+If you want to close item after click action btn in the swipe item. You show add
+```java
+    mItemTouchHelperExtension.closeOpened();
 ```
 
 Contact me: 
