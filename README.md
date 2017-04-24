@@ -7,11 +7,15 @@ This used in the repo [code-reader](https://github.com/loopeer/code-reader)
 
 Screenshot
 ====
-###item swipe with spring  
+### item swipe with spring  
+
 ![](/screenshot/itemtouch_spring.gif)   
-###item swipe with no spring  
+
+### item swipe with no spring  
+
 ![](/screenshot/itemtouch_nospring.gif)  
-###item swipe with recycler view width
+### item swipe with recycler view width  
+
 ![](/screenshot/itemtouch_recycler_width.gif)   
 
 Installation
