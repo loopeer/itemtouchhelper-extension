@@ -31,5 +31,7 @@
             android:text="Refresh"
             android:textColor="@android:color/white"/>
 
-    </LinearLayout><include layout="@layout/view_list_main_content"/>
+    </LinearLayout>
+
+    <include layout="@layout/view_list_main_content"/>
 </FrameLayout>

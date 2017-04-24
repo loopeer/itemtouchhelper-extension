@@ -3,15 +3,12 @@ package com.loopeer.itemtouchhelperextension;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.animation.AnimatorCompatHelper;
-import android.support.v4.animation.AnimatorListenerCompat;
-import android.support.v4.animation.AnimatorUpdateListenerCompat;
-import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
@@ -37,6 +34,7 @@ import java.util.List;
 public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         implements RecyclerView.OnChildAttachStateChangeListener {
 
+    private boolean mClickToRecoverAnimation = true;
     /**
      * Up direction, used for swipe & drag control.
      */
@@ -400,6 +398,9 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         }
     };
 
+    public void closeOpened() {
+        closeOpenedPreItem();
+    }
 
     private void closeOpenedPreItem() {
         final View view = mCallback.getItemFrontView(mPreOpened);
@@ -667,7 +668,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
                         prevActionState, currentTranslateX, currentTranslateY,
                         targetTranslateX, targetTranslateY) {
                     @Override
-                    public void onAnimationEnd(ValueAnimatorCompat animation) {
+                    public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         if (this.mOverridden) {
                             return;
@@ -1067,8 +1068,6 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         select(vh, ACTION_STATE_SWIPE);
         if (mPreOpened != null && mPreOpened != vh && vh != null) {
             closeOpenedPreItem();
-//            select(null, ACTION_STATE_IDLE);
-//            return false;
         }
         return true;
     }
@@ -1290,7 +1289,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
                 }
             }
 
-            final float threshold = mRecyclerView.getWidth() * mCallback
+            final float threshold = getSwipeWidth() * mCallback
                     .getSwipeThreshold(viewHolder);
 
             if ((flags & dirFlag) != 0 && Math.abs(mDx) > threshold) {
@@ -2385,7 +2384,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         }
     }
 
-    private class RecoverAnimation implements AnimatorListenerCompat {
+    private class RecoverAnimation implements Animator.AnimatorListener {
 
         final float mStartDx;
 
@@ -2399,7 +2398,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
 
         final int mActionState;
 
-        private final ValueAnimatorCompat mValueAnimator;
+        private final ValueAnimator mValueAnimator;
 
         private final int mAnimationType;
 
@@ -2426,11 +2425,11 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             mStartDy = startDy;
             mTargetX = targetX;
             mTargetY = targetY;
-            mValueAnimator = AnimatorCompatHelper.emptyValueAnimator();
+            mValueAnimator = ValueAnimator.ofFloat(0f, 1f);
             mValueAnimator.addUpdateListener(
-                    new AnimatorUpdateListenerCompat() {
+                    new ValueAnimator.AnimatorUpdateListener() {
                         @Override
-                        public void onAnimationUpdate(ValueAnimatorCompat animation) {
+                        public void onAnimationUpdate(ValueAnimator animation) {
                             setFraction(animation.getAnimatedFraction());
                         }
                     });
@@ -2461,9 +2460,9 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
          * This way, we can sync translate x/y values w/ the animators to avoid one-off frames.
          */
         public void update() {
-            if (mStartDx == mTargetX) {
-                mX = ViewCompat.getTranslationX(mViewHolder.itemView);
-            } else {
+            /*if (mStartDx == mTargetX) {
+//                mX = ViewCompat.getTranslationX(mViewHolder.itemView);
+            } else */{
                 mX = mStartDx + mFraction * (mTargetX - mStartDx);
             }
             if (mStartDy == mTargetY) {
@@ -2482,12 +2481,12 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         }
 
         @Override
-        public void onAnimationStart(ValueAnimatorCompat animation) {
+        public void onAnimationStart(Animator animation) {
 
         }
 
         @Override
-        public void onAnimationEnd(ValueAnimatorCompat animation) {
+        public void onAnimationEnd(Animator animation) {
             if (!mEnded) {
                 mViewHolder.setIsRecyclable(true);
             }
@@ -2495,13 +2494,17 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         }
 
         @Override
-        public void onAnimationCancel(ValueAnimatorCompat animation) {
+        public void onAnimationCancel(Animator animation) {
             setFraction(1f); //make sure we recover the view's state.
         }
 
         @Override
-        public void onAnimationRepeat(ValueAnimatorCompat animation) {
+        public void onAnimationRepeat(Animator animation) {
 
         }
+    }
+
+    public void setClickToRecoverAnimation(boolean clickToRecoverAnimation) {
+        mClickToRecoverAnimation = clickToRecoverAnimation;
     }
 }
