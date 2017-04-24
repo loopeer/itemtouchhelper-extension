@@ -79,11 +79,6 @@ If you want to close item after click action btn in the swipe item. You show add
     mItemTouchHelperExtension.closeOpened();
 ```
 
-Contact me: 
-====
-Github:[ToDou](https://github.com/ToDou)   
-Gmail:[yytodou123@gmail.com](yytodou123@gmail.com)
-
 License
 ====
 <pre>
