@@ -21,6 +21,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final int ITEM_TYPE_RECYCLER_WIDTH = 1000;
     public static final int ITEM_TYPE_ACTION_WIDTH = 1001;
     public static final int ITEM_TYPE_ACTION_WIDTH_NO_SPRING = 1002;
+    public static final int ITEM_TYPE_NO_SWIPE = 1003;
     private List<TestModel> mDatas;
     private Context mContext;
     private ItemTouchHelperExtension mItemTouchHelperExtension;
@@ -52,6 +53,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.list_item_main, parent, false);
         if (viewType == ITEM_TYPE_ACTION_WIDTH) return new ItemSwipeWithActionWidthViewHolder(view);
+        if (viewType == ITEM_TYPE_NO_SWIPE) return new ItemNoSwipeViewHolder(view);
         if (viewType == ITEM_TYPE_RECYCLER_WIDTH) {
             view = getLayoutInflater().inflate(R.layout.list_item_with_single_delete, parent, false);
             return new ItemViewHolderWithRecyclerWidth(view);
@@ -120,6 +122,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         if (mDatas.get(position).position == 2) {
             return ITEM_TYPE_RECYCLER_WIDTH;
+        }
+        if (mDatas.get(position).position == 3) {
+            return ITEM_TYPE_NO_SWIPE;
         }
         return ITEM_TYPE_ACTION_WIDTH;
     }
@@ -196,6 +201,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public float getActionWidth() {
             return mActionContainer.getWidth();
+        }
+    }
+
+    class ItemNoSwipeViewHolder extends ItemBaseViewHolder {
+
+        public ItemNoSwipeViewHolder(View itemView) {
+            super(itemView);
         }
     }
 

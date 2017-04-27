@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
             if (i == 2) {
                 testModel = new TestModel(i, "Item Swipe with RecyclerView Width");
             }
+            if (i == 3) {
+                testModel = new TestModel(i, "Item No swipe");
+            }
             result.add(testModel);
         }
         return result;
