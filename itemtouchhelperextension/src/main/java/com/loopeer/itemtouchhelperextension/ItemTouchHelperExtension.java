@@ -59,7 +59,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     // Callback#convertToRelativeDirection.
     /**
      * Horizontal start direction. Resolved to LEFT or RIGHT depending on RecyclerView's layout
-     * direction. Used for swipe & drag control.
+     * direction. Used for swipe & drag cwontrol.
      */
     public static final int START = LEFT << 2;
 
@@ -419,8 +419,10 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                mRecoverAnimations.clear();
             }
         });
+
         objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         objectAnimator.start();
     }
