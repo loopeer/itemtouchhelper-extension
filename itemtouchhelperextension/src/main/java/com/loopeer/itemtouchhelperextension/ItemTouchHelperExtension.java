@@ -15,6 +15,7 @@ import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.helper.ItemTouchUIUtil;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -1366,34 +1367,6 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     }
 
     /**
-     * An interface which can be implemented by LayoutManager for better integration with
-     * {@link ItemTouchHelperExtension}.
-     */
-    public static interface ViewDropHandler {
-
-        /**
-         * Called by the {@link ItemTouchHelperExtension} after a View is dropped over another View.
-         * <p>
-         * A LayoutManager should implement this interface to get ready for the upcoming move
-         * operation.
-         * <p>
-         * For example, LinearLayoutManager sets up a "scrollToPositionWithOffset" calls so that
-         * the View under drag will be used as an anchor View while calculating the next layout,
-         * making layout stay consistent.
-         *
-         * @param view   The View which is being dragged. It is very likely that user is still
-         *               dragging this View so there might be other
-         *               {@link #prepareForDrop(View, View, int, int)} after this one.
-         * @param target The target view which is being dropped on.
-         * @param x      The <code>left</code> offset of the View that is being dragged. This value
-         *               includes the movement caused by the user.
-         * @param y      The <code>top</code> offset of the View that is being dragged. This value
-         *               includes the movement caused by the user.
-         */
-        public void prepareForDrop(View view, View target, int x, int y);
-    }
-
-    /**
      * This class is the contract between ItemTouchHelper and your application. It lets you control
      * which touch behaviors are enabled per each ViewHolder and also receive callbacks when user
      * performs these actions.
@@ -1996,8 +1969,8 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
                             final ViewHolder viewHolder, int fromPos, final ViewHolder target, int toPos, int x,
                             int y) {
             final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-            if (layoutManager instanceof ViewDropHandler) {
-                ((ViewDropHandler) layoutManager).prepareForDrop(viewHolder.itemView,
+            if (layoutManager instanceof ItemTouchHelper.ViewDropHandler) {
+                ((ItemTouchHelper.ViewDropHandler) layoutManager).prepareForDrop(viewHolder.itemView,
                         target.itemView, x, y);
                 return;
             }
