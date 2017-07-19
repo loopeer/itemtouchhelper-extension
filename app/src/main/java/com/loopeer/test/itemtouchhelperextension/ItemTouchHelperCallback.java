@@ -48,4 +48,9 @@ public class ItemTouchHelperCallback extends ItemTouchHelperExtension.Callback {
         if (viewHolder instanceof MainRecyclerAdapter.ItemBaseViewHolder)
             holder.mViewContent.setTranslationX(dX);
     }
+
+    @Override
+    public void onPreOpenItemClosed(RecyclerView.ViewHolder viewHolder) {
+        //you can refresh UI or other UI option when this is called like adapter.notifyDataSetChanged()
+    }
 }
