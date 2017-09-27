@@ -2,7 +2,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven'
 
-version = '1.0.5'
+version = '1.0.6'
 
 def siteUrl = 'https://github.com/loopeer/itemtouchhelper-extension'      // 项目的主页
 def gitUrl = 'https://github.com/loopeer/itemtouchhelper-extension.git'   // Git仓库的url
