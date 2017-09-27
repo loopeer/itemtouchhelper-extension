@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion Integer.parseInt(compile_sdk_version)
-    buildToolsVersion build_tools_version
+    compileSdkVersion configs.compileSdkVersion
+    buildToolsVersion configs.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
-        versionCode Integer.parseInt(version_code)
-        versionName version_name
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
     }
     buildTypes {
         release {
@@ -25,4 +25,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':itemtouchhelperextension')
+    implementation libs.appcompatV7
+    implementation libs.design
 }
