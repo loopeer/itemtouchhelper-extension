@@ -420,6 +420,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 mRecoverAnimations.clear();
+                mCallback.onPreOpenItemClosed(mPreOpened);
             }
         });
 
@@ -2235,6 +2236,12 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             }
             return value;
         }
+
+        /**
+         * This method notifies when a pre opened item is closed
+         * @param viewHolder Viewholder of pre opened item
+         */
+        public abstract void onPreOpenItemClosed(ViewHolder viewHolder);
     }
 
     /**
