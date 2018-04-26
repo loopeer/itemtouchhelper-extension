@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopeer.itemtouchhelperextension.AnimationState;
+import com.loopeer.itemtouchhelperextension.AnimationStateListener;
 import com.loopeer.itemtouchhelperextension.Extension;
 import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
 
@@ -87,7 +89,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         public void onClick(View view) {
                             Toast.makeText(mContext, "Refresh Click" + holder.getAdapterPosition()
                                     , Toast.LENGTH_SHORT).show();
-                            mItemTouchHelperExtension.closeOpened();
+                            mItemTouchHelperExtension.closeOpened(new AnimationStateListener() {
+                                @Override
+                                public void onAnimationEvent(AnimationState animationState) {
+                                    String toastMsg;
+
+                                    switch (animationState) {
+                                        case ANIMATION_START :
+                                            toastMsg = "Animation Start";
+                                            break;
+                                        case ANIMATION_END :
+                                            toastMsg = "Animation End";
+                                            break;
+                                        default:
+                                            return;
+                                    }
+
+                                    Toast.makeText(mContext, toastMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
 

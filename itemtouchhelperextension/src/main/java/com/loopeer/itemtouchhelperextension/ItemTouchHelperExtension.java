@@ -398,11 +398,19 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         }
     };
 
+    public void closeOpened(AnimationStateListener listener) {
+        closeOpenedPreItem(listener);
+    }
+
     public void closeOpened() {
         closeOpenedPreItem();
     }
 
     private void closeOpenedPreItem() {
+        closeOpenedPreItem(null);
+    }
+
+    private void closeOpenedPreItem(final AnimationStateListener listener) {
         final View view = mCallback.getItemFrontView(mPreOpened);
         if (mPreOpened == null || view == null) return;
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "translationX", view.getTranslationX(), 0f);
@@ -410,6 +418,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
+                if (listener != null) listener.onAnimationEvent(AnimationState.ANIMATION_START);
                 if (mPreOpened != null) mCallback.clearView(mRecyclerView, mPreOpened);
                 if (mPreOpened != null) mPendingCleanup.remove(mPreOpened.itemView);
                 endRecoverAnimation(mPreOpened, true);
@@ -420,6 +429,8 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 mRecoverAnimations.clear();
+
+                if (listener != null) listener.onAnimationEvent(AnimationState.ANIMATION_END);
             }
         });
 
