@@ -92,7 +92,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             mItemTouchHelperExtension.closeOpened(new AnimationStateListener() {
                                 @Override
                                 public void onAnimationEvent(AnimationState animationState) {
-                                    String toastMsg = "";
+                                    String toastMsg;
 
                                     switch (animationState) {
                                         case ANIMATION_START :
@@ -101,6 +101,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                         case ANIMATION_END :
                                             toastMsg = "Animation End";
                                             break;
+                                        default:
+                                            return;
                                     }
 
                                     Toast.makeText(mContext, toastMsg, Toast.LENGTH_SHORT).show();
